@@ -1,0 +1,33 @@
+<!--
+  Generated template for the UserPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Usuarios</ion-title>
+
+    <ion-buttons right>
+      <button  ion-button icon-only (click)="addUsuario('nuevo',usuario)" >
+        <ion-icon name="person-add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-item text-wrap *ngFor="let usuario of usuarios" (click)="addUsuario('editar',usuario)">
+      <ion-avatar item-start>
+          <img src="../assets/imgs/usuario.png">
+      </ion-avatar>
+        <h2><strong>{{usuario.nombre}} {{usuario.primerApellido}}</strong></h2>
+        {{usuario.email}}
+        {{usuario.telefono}}
+    </ion-item>
+  </ion-list>
+</ion-content>

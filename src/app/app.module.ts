@@ -13,8 +13,14 @@ import { HomePage } from '../pages/home/home';
 import { ChatPage } from '../pages/chat/chat';
 import { ContactPage } from '../pages/contact/contact';
 import { TabsPage } from '../pages/tabs/tabs';
+
 import { LoginPage } from '../pages/login/login';
 import { MenuPage } from '../pages/menu/menu';
+import { UserPage } from '../pages/user/user';
+import { AddUserPage } from '../pages/add-user/add-user';
+import { UserServiceProvider } from '../providers/user-service/user-service';
+import { UserProvider } from '../providers/user/user';
+import { GroupProvider } from '../providers/group/group';
 
 
 @NgModule({
@@ -25,6 +31,8 @@ import { MenuPage } from '../pages/menu/menu';
     ContactPage,
     LoginPage,
     MenuPage,
+    UserPage,
+    AddUserPage,
     TabsPage
   ],
   imports: [
@@ -40,13 +48,18 @@ import { MenuPage } from '../pages/menu/menu';
     ContactPage,
     LoginPage,
     MenuPage,
+    UserPage,
+    AddUserPage,
     TabsPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    HttpProvider
+    HttpProvider,
+    UserServiceProvider,
+    UserProvider,
+    GroupProvider
   ]
 })
 export class AppModule {}

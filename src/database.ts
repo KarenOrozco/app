@@ -91,6 +91,9 @@ export class SesionUsuario implements IUsuario{
         this.nombre = nombre;
     } 
 
+    get(){
+        return db.usuarioLog.toArray()[0];
+    }
 
     static getUsuarioLog(){
         return db.usuarioLog.toArray();

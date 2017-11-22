@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 
-import { HttpProvider } from '../../providers/http/http';
+import { UserProvider } from '../../providers/user/user';
 import { TabsPage } from '../tabs/tabs';
 import { SesionUsuario } from '../../database';
 
@@ -17,7 +17,7 @@ export class LoginPage {
   matricula : string;
   password : string;
  
-  constructor(public navCtrl: NavController, public http: HttpProvider, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public http: UserProvider, public alertCtrl: AlertController) {
     //this.usuario = {matricula: '', password: ''};
   }
 

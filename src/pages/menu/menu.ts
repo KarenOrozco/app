@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 
 
-import { ContactPage } from '../contact/contact';
+import { UserPage } from '../user/user';
 /**
  * Generated class for the MenuPage page.
  *
@@ -29,7 +29,8 @@ export class MenuPage {
   }
 
   usuarios(){
-    this.navCtrl.push(ContactPage);
+    this.navCtrl.push(UserPage);
+    this.viewCtrl.dismiss();
   }
 
 }

@@ -18,31 +18,4 @@ export class HttpProvider {
     
   }
 
-  login(matricula,password){
-    let path = 'usuarioControler.php';
-    let datos = {operation: 'login', matricula: matricula , password : password};
-
-    return this.http
-    .post(this.url+path,JSON.stringify(datos))
-    .map(res => res.json(),
-      err => {
-        console.log(err);
-      }
-    )
-  }
-
-
-  getGruposUsuario(usuarioId){
-    let path = 'grupoController.php';
-    let datos = {operation: 'getGruposUsuario', usuarioId: usuarioId};
-
-    return this.http
-    .post(this.url+path,JSON.stringify(datos))
-    .map(res => res.json(),
-      err => {
-        console.log(err);
-      }
-    )
-  }
-
 }

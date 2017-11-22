@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { HttpProvider } from '../../providers/http/http';
+import { GroupProvider } from '../../providers/group/group';
 import { SesionUsuario, Contacto } from '../../database';
 
 /**
@@ -21,8 +21,9 @@ export class ContactPage {
   grupos : Contacto;
   usuarioLogin : any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,  public http: HttpProvider) {  
-   
+  constructor(public navCtrl: NavController, public navParams: NavParams,  public http: GroupProvider ) {  
+    //this.usuarioLogin = this.log.get();
+  
   }
 
   ionViewDidLoad() {
