@@ -4,7 +4,7 @@ import { AlertController } from 'ionic-angular';
 
 import { HttpProvider } from '../../providers/http/http';
 import { TabsPage } from '../tabs/tabs';
-import { Usuario } from '../../database';
+import { SesionUsuario } from '../../database';
 
 
 @Component({
@@ -13,21 +13,40 @@ import { Usuario } from '../../database';
 })
 export class LoginPage {
 
-  usuario : any;
+  usuario : SesionUsuario;
+  matricula : string;
+  password : string;
  
   constructor(public navCtrl: NavController, public http: HttpProvider, public alertCtrl: AlertController) {
-    this.usuario = {matricula: '', password: ''};
+    //this.usuario = {matricula: '', password: ''};
   }
 
-  login($matricula,$password){
+  login(matricula,password){
 
-    this.http.login($matricula,$password).subscribe( res => {
-      console.log('Resultado'+res);
+    this.http.login(matricula,password).subscribe( res => {
+      console.log(res);
      
       if(res != ''){
         this.usuario = res;
-        Usuario.saveUsuarioLog(this.usuario);
-        this.navCtrl.setRoot(TabsPage);        
+        console.log((res));
+        
+        let sesionActiva = 1; //sesión iniciada
+
+        let usuarioLog = new SesionUsuario(
+          res.nombre,
+          res.primerApellido,
+          res.segundoApellido,
+          res.genero,
+          res.email,
+          res.telefono,
+          res.matricula,
+          res.password,
+          sesionActiva
+        );
+
+        usuarioLog.saveUsuarioLog();
+        this.navCtrl.setRoot(TabsPage);     
+
       }else{
         this.alerta();
       }

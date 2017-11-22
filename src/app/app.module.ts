@@ -10,17 +10,21 @@ import { HttpModule } from '@angular/http';
 
 
 import { HomePage } from '../pages/home/home';
+import { ChatPage } from '../pages/chat/chat';
 import { ContactPage } from '../pages/contact/contact';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
+import { MenuPage } from '../pages/menu/menu';
 
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
+    ChatPage,
     ContactPage,
     LoginPage,
+    MenuPage,
     TabsPage
   ],
   imports: [
@@ -32,8 +36,10 @@ import { LoginPage } from '../pages/login/login';
   entryComponents: [
     MyApp,
     HomePage,
+    ChatPage,
     ContactPage,
     LoginPage,
+    MenuPage,
     TabsPage
   ],
   providers: [

@@ -14,5 +14,13 @@
 
 
 <ion-content padding>
-
+  <ion-list>
+    <ion-item text-wrap *ngFor="let grupo of grupos" >
+      <ion-avatar item-start>
+          <img src="../assets/imgs/usuario.png">
+      </ion-avatar>
+        <h2><strong>{{grupo.nombre}}</strong></h2>
+        {{usuarioLogin.nombre}}
+    </ion-item>
+  </ion-list>
 </ion-content>

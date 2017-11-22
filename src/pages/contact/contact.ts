@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { HttpProvider } from '../../providers/http/http';
+import { SesionUsuario, Contacto } from '../../database';
+
 /**
  * Generated class for the ContactPage page.
  *
@@ -11,15 +14,47 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 @IonicPage()
 @Component({
   selector: 'page-contact',
-  templateUrl: 'contact.html',
+  templateUrl: 'contact.html'
 })
 export class ContactPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  grupos : Contacto;
+  usuarioLogin : any;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,  public http: HttpProvider) {  
+   
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ContactPage');
+    SesionUsuario.getUsuarioLog()
+      .then((result) =>{
+        this.usuarioLogin = result[0];
+        console.log(this.usuarioLogin.id);
+
+        this.http.getGruposUsuario(this.usuarioLogin.id).subscribe( res => {
+          console.log(res);
+          this.grupos = res;
+          
+
+        },
+        error =>{
+          console.log("erroooooooooooooooor");
+          console.log(error);
+        });
+    });
   }
 
 }
+
+
+ //console.log(this.usuarioLogin);
+
+      // this.http.getGruposUsuario(this.usuarioLogin.id).subscribe( res => {
+      //   console.log(res);
+      //   this.grupos = res;
+
+      // },
+      // error =>{
+      //   console.log("erroooooooooooooooor");
+      //   console.log(error);
+      // });

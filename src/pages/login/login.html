@@ -5,16 +5,26 @@
 <ion-content padding>
   <ion-card>
     
-    <ion-item>
-      <ion-label floating>Username</ion-label>
-      <ion-input type="text"  [(ngModel)]="usuario.matricula"></ion-input>
-    </ion-item>
-  
-    <ion-item>
-      <ion-label floating>Password</ion-label>
-      <ion-input type="password"  [(ngModel)]="usuario.password"></ion-input>
-    </ion-item>
+    <ion-card-content>
+      <ion-list >
+        <ion-item>
+          <ion-label floating>Username</ion-label>
+          <ion-input type="text"  [(ngModel)]="matricula"></ion-input>
+        </ion-item>
+      
+        <ion-item>
+          <ion-label floating>Password</ion-label>
+          <ion-input type="password"  [(ngModel)]="password"></ion-input>
+        </ion-item>
+      </ion-list>
+
+      
+        <button ion-button  block  color="secondary" (click)="login(matricula,password)" >Acceder</button>      
+      
+    </ion-card-content>
     
-    <button ion-button color="secondary" (click)="login(usuario.matricula,usuario.password)" >Acceder</button>
+    
+    
+   
   </ion-card>
 </ion-content>

@@ -12,18 +12,32 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class HttpProvider {
 
-  url : string = 'http://localhost/app/controllers/usuarioControler.php';
+  url : string = 'http://localhost/app/controllers/';
 
   constructor(public http: Http) {
     
   }
 
-  login($matricula,$password){
-    
-    let datos = {matricula: $matricula , password : $password};
+  login(matricula,password){
+    let path = 'usuarioControler.php';
+    let datos = {operation: 'login', matricula: matricula , password : password};
 
     return this.http
-    .post(this.url,JSON.stringify(datos))
+    .post(this.url+path,JSON.stringify(datos))
+    .map(res => res.json(),
+      err => {
+        console.log(err);
+      }
+    )
+  }
+
+
+  getGruposUsuario(usuarioId){
+    let path = 'grupoController.php';
+    let datos = {operation: 'getGruposUsuario', usuarioId: usuarioId};
+
+    return this.http
+    .post(this.url+path,JSON.stringify(datos))
     .map(res => res.json(),
       err => {
         console.log(err);

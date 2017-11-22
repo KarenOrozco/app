@@ -1,40 +1,47 @@
 import  Dexie  from 'dexie';
+import { Injectable } from '@angular/core';
+
+
 
 export class AppDB extends Dexie{
 
     usuarioLog : Dexie.Table<IUsuario,number>;
-    usuarios : Dexie.Table<IUsuario,number>;
+    contactos : Dexie.Table<IContacto,number>;
     mensajes : Dexie.Table<IMensaje,number>;
     
     constructor(){
         super("AppDB");
 
         this.version(1).stores({
-            usuarioLog  : 'id,nombre,primerApellido,segundoApellido,genero,email,telefono,accesos,ultimoAcceso,imagenNombre,imegenPath,matricula,password',
-            usuarios    : '++id,nombre,primerApellido,segundoApellido,genero,email,telefono,accesos,ultimoAcceso,imagenNombre,imegenPath,matricula,password',
+            usuarioLog  : '++id,nombre,primerApellido,segundoApellido,genero,email,telefono,accesos,ultimoAcceso,imagenNombre,imagenPath,matricula,password,sesionActiva',
+            contactos    : '++id,tipo,nombre,primerApellido,segundoApellido,genero,email,telefono,ultimoAcceso',
             mensajes    : '++id,contenido,status,usuarioEmisor,usuarioReceptor,fechaEnvio,fechaRecibido'
         });
 
-        this.usuarios.mapToClass(Usuario);
+        this.usuarioLog.mapToClass(SesionUsuario);
+        this.contactos.mapToClass(Contacto);        
         this.mensajes.mapToClass(Mensaje);
     }
 }
 
-export class Usuario implements IUsuario{
-    id                   ?:number;
-    nombre                :string;
-    primerApellido        :string;
-    segundoApellido       :string;
-    genero                :string;
-    email                 :string;
-    telefono              :string;
-    accesos               :number;
-    ultimoAcceso          :string;
-    imagenNombre          :string;
-    imegenPath            :string;
-    matricula             :string;
-    password              :string;
+@Injectable()
+export class SesionUsuario implements IUsuario{
+     id                   ?:number;
+     nombre                :string;
+     primerApellido        :string;
+     segundoApellido       :string;
+     genero                :string;
+     email                 :string;
+     telefono              :string;
+     accesos               :number;
+     ultimoAcceso          :string;
+     imagenNombre          :string;
+     imagenPath            :string;
+     matricula             :string;
+     password              :string;
+     sesionActiva          :number;
 
+    
     constructor(
         nombre                :string,
         primerApellido        :string,
@@ -44,12 +51,13 @@ export class Usuario implements IUsuario{
         telefono              :string,
         matricula             :string,
         password              :string,
+        sesionActiva          :number,
 
         accesos              ?:number,
         ultimoAcceso         ?:string,
         imagenNombre         ?:string,
-        imegenPath           ?:string,
-        id                   ?:number,
+        imagenPath           ?:string,
+        id                   ?:number
         
     ){
         this.nombre             = nombre;
@@ -60,31 +68,88 @@ export class Usuario implements IUsuario{
         this.telefono           = telefono;
         this.matricula          = matricula;
         this.password           = password;
+        this.sesionActiva       = sesionActiva;
 
         if(accesos) this.accesos            = accesos;
         if(ultimoAcceso) this.ultimoAcceso  = ultimoAcceso ;  
         if(imagenNombre) this.imagenNombre  = imagenNombre;
-        if(imegenPath) this.imegenPath      = imegenPath;        
+        if(imagenPath) this.imagenPath      = imagenPath;        
         if(id)  this.id                     = id;  
     }
 
-    save(){
-        return db.usuarios.add(this);
+
+    // GET de los atributos de la clase 
+    get getNombre():string {
+        return this.nombre;
     }
 
-    static all(){
-        return db.usuarios.orderBy("id").reverse().toArray();
-    }
+
+
+
+    // SET
+    set setNombre(nombre:string) {
+        this.nombre = nombre;
+    } 
+
 
     static getUsuarioLog(){
         return db.usuarioLog.toArray();
     }
     
-    static saveUsuarioLog(usuarioLog){
-        return db.usuarioLog.add(usuarioLog);        
+    saveUsuarioLog(){
+        return db.usuarioLog.put(this);        
     }
 
 }
+
+export class Contacto implements IContacto{
+    id                   ?:number;
+    tipo                  :number;
+    nombre                :string;
+    primerApellido        :string;
+    segundoApellido       :string;
+    genero                :string;
+    email                 :string;
+    telefono              :string;
+    ultimoAcceso          :string;
+ 
+
+    constructor(
+        tipo                  :number,
+        nombre                :string,
+        primerApellido       ?:string,
+        segundoApellido      ?:string,
+        genero               ?:string,
+        email                ?:string,
+        telefono             ?:string,
+        id                   ?:number
+    ){
+        this.tipo               = tipo;
+        this.nombre             = nombre;
+        this.primerApellido     = primerApellido;
+        this.segundoApellido    = segundoApellido;
+        this.genero             = genero;
+        this.email              = email;
+        this.telefono           = telefono;
+     
+        if(primerApellido)  this.primerApellido         = primerApellido;  
+        if(segundoApellido)  this.segundoApellido       = segundoApellido;  
+        if(genero)  this.genero                         = genero;  
+        if(email)  this.email                           = email;  
+        if(telefono)  this.telefono                     = telefono;  
+        if(id)  this.id                                 = id;  
+    }
+
+    save(){
+        return db.contactos.add(this);
+    }
+
+    static all(){
+        return db.contactos.orderBy("id").reverse().toArray();
+    }
+
+}
+
 
 export class Mensaje implements IMensaje{
     id                   ?:number;
@@ -145,9 +210,22 @@ export interface IUsuario{
     accesos               :number;
     ultimoAcceso          :string;
     imagenNombre          :string;
-    imegenPath            :string;
+    imagenPath            :string;
     matricula             :string;
     password              :string;
+    sesionActiva          :number;
+}
+
+export interface IContacto{
+    id?                   :number;
+    tipo                  :number;
+    nombre                :string;
+    primerApellido        :string;
+    segundoApellido       :string;
+    genero                :string;    
+    email                 :string;
+    telefono              :string;
+    ultimoAcceso          :string;
 }
 
 export interface IMensaje{
