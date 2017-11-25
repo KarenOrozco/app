@@ -1,0 +1,31 @@
+<!--
+  Generated template for the GroupPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Grupos</ion-title>
+    <ion-buttons right>
+      <button  ion-button icon-only (click)="addGroup('nuevo',grupo)" >
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-item text-wrap *ngFor="let grupo of grupos" (click)="addGroup('editar',grupo)">
+      <ion-avatar item-start>
+          <img src="../assets/imgs/usuario.png">
+      </ion-avatar>
+        <h2><strong>{{grupo.nombre}}</strong></h2>
+
+    </ion-item>
+  </ion-list>
+</ion-content>

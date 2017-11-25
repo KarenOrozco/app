@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
 
 import { GroupProvider } from '../../providers/group/group';
 import { SesionUsuario, Contacto } from '../../database';
+import { MenuPage } from '../menu/menu';
 
 /**
  * Generated class for the ContactPage page.
@@ -21,7 +22,7 @@ export class ContactPage {
   grupos : Contacto;
   usuarioLogin : any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,  public http: GroupProvider ) {  
+  constructor(public navCtrl: NavController, public navParams: NavParams,  public http: GroupProvider, public popoverCtrl: PopoverController ) {  
     //this.usuarioLogin = this.log.get();
   
   }
@@ -42,6 +43,13 @@ export class ContactPage {
           console.log("erroooooooooooooooor");
           console.log(error);
         });
+    });
+  }
+
+  presentPopover(myEvent) {
+    let popover = this.popoverCtrl.create(MenuPage);
+    popover.present({
+      ev: myEvent
     });
   }
 

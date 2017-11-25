@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,ViewController } from 'ionic-angular';
 
-import {FormBuilder, FormGroup, Validators, AbstractControl} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { UserProvider } from '../../providers/user/user';
+
 
 /**
  * Generated class for the AddUserPage page.
@@ -22,16 +23,17 @@ export class AddUserPage {
   accion : any;
   userForm: FormGroup;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public http: UserProvider, private formBuilder: FormBuilder) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public http: UserProvider, private formBuilder: FormBuilder, public viewCtrl: ViewController) {
     this.usuario =  this.navParams.data.usuario;
     this.accion =  this.navParams.get('accion');
 
     this.userForm = this.formBuilder.group({
       nombre: ['', Validators.required],
-      primerApellido: [''],
+      primerApellido: ['',Validators.required],
       segundoApellido: [''],
-      email: [''],
-      telefono: ['']
+      genero: ['',Validators.required],
+      email: ['',Validators.required],
+      telefono: ['',Validators.required]
     });
   }
 
@@ -46,6 +48,7 @@ export class AddUserPage {
         this.http.save(this.usuario).subscribe( res => {
           console.log(res);
           if(res == true){
+            this.viewCtrl.dismiss();
             //this.usuario = res;
             console.log((res));
         
@@ -60,6 +63,7 @@ export class AddUserPage {
         this.http.update(this.usuario).subscribe( res => {
           console.log(res);
           if(res == true){
+            this.viewCtrl.dismiss();
             //this.usuario = res;
             console.log((res));
         
@@ -74,6 +78,11 @@ export class AddUserPage {
       default:
 
     }
+  }
+  
+  cerrarModal(){
+    this.viewCtrl.dismiss();
+    
   }
 
 }

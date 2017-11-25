@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 
 
 import { UserPage } from '../user/user';
+import { GroupPage } from '../group/group';
+
 /**
  * Generated class for the MenuPage page.
  *
@@ -28,11 +30,25 @@ export class MenuPage {
     this.viewCtrl.dismiss();
   }
 
-  usuarios(){
-    this.navCtrl.push(UserPage);
+  page(opcion){
+    switch (opcion){
+      case 1:
+        this.navCtrl.push(UserPage);
+      break;
+      case 2:
+        this.navCtrl.push(GroupPage);      
+      break;
+      case 3:
+        this.navCtrl.push(UserPage);      
+      break;
+      case 4:
+        this.navCtrl.push(UserPage);      
+      break;
+      default:
+
+    }
     this.viewCtrl.dismiss();
   }
-
 }
 
 

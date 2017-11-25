@@ -33,6 +33,7 @@ export class LoginPage {
         let sesionActiva = 1; //sesión iniciada
 
         let usuarioLog = new SesionUsuario(
+          res.id,
           res.nombre,
           res.primerApellido,
           res.segundoApellido,

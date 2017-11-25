@@ -18,9 +18,11 @@ import { LoginPage } from '../pages/login/login';
 import { MenuPage } from '../pages/menu/menu';
 import { UserPage } from '../pages/user/user';
 import { AddUserPage } from '../pages/add-user/add-user';
-import { UserServiceProvider } from '../providers/user-service/user-service';
+import { GroupPage } from '../pages/group/group';
+import { AddGroupPage } from '../pages/add-group/add-group';
 import { UserProvider } from '../providers/user/user';
 import { GroupProvider } from '../providers/group/group';
+import { ChatProvider } from '../providers/chat/chat';
 
 
 @NgModule({
@@ -33,12 +35,16 @@ import { GroupProvider } from '../providers/group/group';
     MenuPage,
     UserPage,
     AddUserPage,
+    GroupPage,
+    AddGroupPage,
     TabsPage
   ],
   imports: [
     BrowserModule,
     HttpModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp,{
+      tabsHideOnSubPages: true,
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -50,6 +56,8 @@ import { GroupProvider } from '../providers/group/group';
     MenuPage,
     UserPage,
     AddUserPage,
+    GroupPage,
+    AddGroupPage,
     TabsPage
   ],
   providers: [
@@ -57,9 +65,9 @@ import { GroupProvider } from '../providers/group/group';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     HttpProvider,
-    UserServiceProvider,
     UserProvider,
-    GroupProvider
+    GroupProvider,
+    ChatProvider
   ]
 })
 export class AppModule {}

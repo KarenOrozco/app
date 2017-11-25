@@ -15,7 +15,7 @@ export class AppDB extends Dexie{
         this.version(1).stores({
             usuarioLog  : '++id,nombre,primerApellido,segundoApellido,genero,email,telefono,accesos,ultimoAcceso,imagenNombre,imagenPath,matricula,password,sesionActiva',
             contactos    : '++id,tipo,nombre,primerApellido,segundoApellido,genero,email,telefono,ultimoAcceso',
-            mensajes    : '++id,contenido,status,usuarioEmisor,usuarioReceptor,fechaEnvio,fechaRecibido'
+            mensajes    : '++id,contenido,status,usuarioEmisor,usuarioReceptor,fechaEnvio,fechaRecibido,conversacionId'
         });
 
         this.usuarioLog.mapToClass(SesionUsuario);
@@ -43,6 +43,7 @@ export class SesionUsuario implements IUsuario{
 
     
     constructor(
+        id                    :number,
         nombre                :string,
         primerApellido        :string,
         segundoApellido       :string,
@@ -56,10 +57,10 @@ export class SesionUsuario implements IUsuario{
         accesos              ?:number,
         ultimoAcceso         ?:string,
         imagenNombre         ?:string,
-        imagenPath           ?:string,
-        id                   ?:number
+        imagenPath           ?:string
         
     ){
+        this.id                 = id;
         this.nombre             = nombre;
         this.primerApellido     = primerApellido;
         this.segundoApellido    = segundoApellido;
@@ -74,7 +75,7 @@ export class SesionUsuario implements IUsuario{
         if(ultimoAcceso) this.ultimoAcceso  = ultimoAcceso ;  
         if(imagenNombre) this.imagenNombre  = imagenNombre;
         if(imagenPath) this.imagenPath      = imagenPath;        
-        if(id)  this.id                     = id;  
+        // if(id)  this.id                     = id;  
     }
 
 
@@ -162,7 +163,7 @@ export class Mensaje implements IMensaje{
     usuarioReceptor       :number;
     fechaEnvio            :string;
     fechaRecibido         :string;
-    conversacion          :number;
+    conversacionId          :number;
 
     constructor(
         contenido           :string,
@@ -171,7 +172,7 @@ export class Mensaje implements IMensaje{
         usuarioReceptor     :number,
         fechaEnvio         ?:string,
         fechaRecibido      ?:string,
-        conversacion       ?:number,
+        conversacionId     ?:number,
         id                 ?:number
     ){
         this.contenido          = contenido;
@@ -181,7 +182,7 @@ export class Mensaje implements IMensaje{
         
         if(fechaEnvio) this.fechaEnvio          = fechaEnvio;
         if(fechaRecibido) this.fechaRecibido    = fechaRecibido;
-        if(conversacion) this.conversacion      = conversacion;
+        if(conversacionId) this.conversacionId  = conversacionId;
         if(id)  this.id                         = id;  
     }
 
@@ -239,7 +240,7 @@ export interface IMensaje{
     usuarioReceptor       :number;
     fechaEnvio            :string;
     fechaRecibido         :string;
-    conversacion          :number;
+    conversacionId        :number;
 }
 
 export interface IConversacion{

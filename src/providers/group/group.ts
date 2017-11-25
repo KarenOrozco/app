@@ -31,5 +31,39 @@ export class GroupProvider {
     )
   }
 
+  get(){
+    let datos = {operation: 'get'};
+    return this.http
+    .post(this.url,JSON.stringify(datos))
+    .map(res => res.json(),
+      err => {
+        console.log(err);
+      }
+    )
+  }
+  
+  save(usuario){
+    let datos = {operation: 'save', usuario: usuario};
+    return this.http
+    .post(this.url,JSON.stringify(datos))
+    .map(res => res.json(),
+      err => {
+        console.log(err);
+      }
+    )
+  }
+
+  update(usuario){
+    let datos = {operation: 'update', usuario: usuario};
+    return this.http
+    .post(this.url,JSON.stringify(datos))
+    .map(res => res.json(),
+      err => {
+        console.log(err);
+      }
+    )
+  }
+   
+
 
 }

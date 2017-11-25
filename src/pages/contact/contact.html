@@ -7,7 +7,18 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Contact</ion-title>
+    <ion-buttons left>
+        <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+      </ion-buttons>
+  
+      <ion-buttons right>
+        <button  ion-button icon-only (click)="presentPopover($event)">
+          <ion-icon name="more"></ion-icon>
+        </button>
+      </ion-buttons>
+    <ion-title></ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -20,7 +31,6 @@
           <img src="../assets/imgs/usuario.png">
       </ion-avatar>
         <h2><strong>{{grupo.nombre}}</strong></h2>
-        {{usuarioLogin.nombre}}
     </ion-item>
   </ion-list>
 </ion-content>

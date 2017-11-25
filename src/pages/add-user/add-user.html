@@ -7,13 +7,24 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{accion}}</ion-title>
+    <!-- <ion-title>{{accion}}</ion-title> -->
+    <ion-buttons left >
+      <button ion-button (click)="cerrarModal()">
+        Cancelar
+        <!-- <ion-icon name="md-close"></ion-icon> (ngSubmit)="onSubmit()" -->
+      </button>
+    </ion-buttons>
+    <ion-buttons end >
+      <button ion-button  type="submit" [disabled]="!userForm.valid" (click)="onSubmit()">
+        Guardar
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content padding>
-  <form [formGroup]="userForm" class="form" (ngSubmit)="onSubmit()" >
+  <form [formGroup]="userForm" class="form" > 
     <ion-item>
       <ion-label stacked>Nombre</ion-label>
       <ion-input type="text"  [(ngModel)]="usuario.nombre" formControlName="nombre"></ion-input>
@@ -28,7 +39,15 @@
       <ion-label stacked>Segundo apellido</ion-label>
       <ion-input type="text"  [(ngModel)]="usuario.segundoApellido" formControlName="segundoApellido"></ion-input>
     </ion-item>
-  
+
+    <ion-item>
+      <ion-label stacked>Género</ion-label>
+      <ion-select [(ngModel)]="usuario.genero" formControlName="genero"> 
+        <ion-option value="Femenino">Femenino</ion-option>
+        <ion-option value="Masculino">Masculino</ion-option>
+      </ion-select>
+    </ion-item>
+    
     <ion-item>
       <ion-label stacked>Correo electrónico</ion-label>
       <ion-input type="email"  [(ngModel)]="usuario.email" formControlName="email"></ion-input>
@@ -37,10 +56,9 @@
 
     <ion-item>
       <ion-label stacked>Número de teléfono </ion-label>
-      <ion-input type="text"  [(ngModel)]="usuario.telefono" formControlName="telefono"></ion-input>
+      <ion-input type="number"  [(ngModel)]="usuario.telefono" formControlName="telefono"></ion-input>
     </ion-item>
 
-    <button ion-button full type="submit" [disabled]="!userForm.valid">Submit</button>
   </form>
 
 </ion-content>

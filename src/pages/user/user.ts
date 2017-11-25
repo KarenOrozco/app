@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 
 import { UserProvider } from '../../providers/user/user';
 import { AddUserPage } from '../add-user/add-user';
@@ -21,7 +21,7 @@ export class UserPage {
   usuarios : any;
   usuario : any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public http: UserProvider ) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public http: UserProvider, public modalCtrl : ModalController ) {
     this.usuario = {nombre: null, primerApellido: null, segundoApellido: null, genero: null, email: null, telefono: null, accesos: 0, ultimoAcceso: null, imagenNombre: null, imagenPath: null, matricula: null, password: null};
   }
 
@@ -39,9 +39,9 @@ export class UserPage {
   }
 
   addUsuario(accion,usuario){
-    console.log(accion);
-    console.log(usuario);
-    this.navCtrl.push(AddUserPage,{usuario:usuario, 'accion': accion});
+    let modalSitio = this.modalCtrl.create( AddUserPage, {usuario:usuario, 'accion': accion} );
+    modalSitio.present();
+    //this.navCtrl.push(AddUserPage,{usuario:usuario, 'accion': accion});
   }
 
   goBack() {
